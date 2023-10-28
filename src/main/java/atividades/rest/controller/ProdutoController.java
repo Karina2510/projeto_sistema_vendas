@@ -2,6 +2,7 @@ package atividades.rest.controller;
 
 import atividades.domain.entity.Produto;
 import atividades.domain.repository.Produtos;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class ProdutoController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
+    public void update(@PathVariable @ApiParam("id do produto") Integer id, @RequestBody @Valid Produto produto) {
         repository.findById(id).map(p -> {
             produto.setId(p.getId());
             repository.save(produto);
@@ -39,7 +40,7 @@ public class ProdutoController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable @ApiParam("id do produto") Integer id) {
         repository.findById(id).map(p -> {
             repository.delete(p);
             return Void.TYPE;
@@ -47,7 +48,7 @@ public class ProdutoController {
     }
 
     @GetMapping("{id}")
-    public Produto getById(@PathVariable Integer id) {
+    public Produto getById(@PathVariable @ApiParam("id do produto") Integer id) {
 
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado"));
     }

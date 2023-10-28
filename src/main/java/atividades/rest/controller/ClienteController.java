@@ -48,7 +48,7 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable @ApiParam("id do cliente") Integer id) {
         clientes.findById(id).map(cliente -> {
             clientes.delete(cliente);
             return cliente;
@@ -59,7 +59,7 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
+    public void update(@PathVariable @ApiParam("id do cliente") Integer id, @RequestBody @Valid Cliente cliente) {
         clientes.findById(id).map(clienteExistente -> {
             cliente.setId(clienteExistente.getId());
             clientes.save(cliente);

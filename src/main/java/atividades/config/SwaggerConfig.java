@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
+               .securitySchemes(Arrays.asList(apiKey()))
                 .apiInfo(apiInfo());
     }
 

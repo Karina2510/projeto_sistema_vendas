@@ -8,6 +8,7 @@ import atividades.rest.dto.InformacaoItemPedidoDTO;
 import atividades.rest.dto.InformacoesPedidosDTO;
 import atividades.rest.dto.PedidoDTO;
 import atividades.service.PedidoService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,7 +39,7 @@ public class PedidoController {
     }
 
     @GetMapping("{id}")
-    public InformacoesPedidosDTO getById(@PathVariable Integer id){
+    public InformacoesPedidosDTO getById(@PathVariable @ApiParam("id do pedido") Integer id){
         return service.obterPedidoCompleto(id).map(p -> converter(p)).orElseThrow(() ->
                 new ResponseStatusException(NOT_FOUND, "Pedido não encontrado. "));
     }
@@ -52,7 +53,7 @@ public class PedidoController {
 
     @PatchMapping("{id}")
     @ResponseStatus(NO_CONTENT)
-    public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
+    public void updateStatus(@PathVariable @ApiParam("id do pedido") Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
         String novoStatus = dto.getNovoStatus();
             service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
     }
